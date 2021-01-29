@@ -59,7 +59,7 @@ int main(){
 
     int puntiA = 0,puntiB = 0;
     int giocate = getN();
-    
+
     for (int x = 0; x < giocate; x++)
     {
         char res = decido(getto(),getto());
