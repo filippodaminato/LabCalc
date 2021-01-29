@@ -5,8 +5,9 @@
 
 
 double genera_lanci(int minimo, int massimo){
+
   double a, b;
-  a= (double) rand()/RAND_MAX * (massimo-minimo)+minimo;
+  a = (double) rand()/RAND_MAX * (massimo-minimo)+minimo;
 
   for(int i=0; i<2; i++){
 
@@ -18,6 +19,7 @@ double genera_lanci(int minimo, int massimo){
   }
   return a;
 }    
+
 void competizione(double lanci[]){
 
   for(int i=0; i<200; i++){
@@ -25,11 +27,12 @@ void competizione(double lanci[]){
   }
 
 }
+
 void ordina(int *codici, double *lanci){
 
     double temp_1=0;
     int temp_2=0;
-
+  
     int scambio = 1;
     while (scambio)
     {   
@@ -55,10 +58,49 @@ void ordina(int *codici, double *lanci){
     {
         printf("%d - %lf\n", codici[x], lanci[x]);
     }
-    
+  
+}
+
+void ordinaDaniele(int codici[], double lanci[]){
+
+    double temp_1=0;
+    int temp_2=0;
+  
+    for(int x = 0; x < 200; x++)
+    {   
+        for(int i = 0; i<200-1; i++){
+            if(lanci[i]<lanci[i+1]){
+
+                temp_1=lanci[i];
+                lanci[i]=lanci[i+1];
+                lanci[i+1]=temp_1;
 
 
+                temp_2=codici[i];
+                codici[i]=codici[i+1];
+                codici[i+1]=temp_2;
 
+            } 
+        }
+    }
+
+    for (int x = 0; x < 200; x++)
+    {
+        printf("%d - %lf\n", codici[x], lanci[x]);
+    }
+  
+}
+
+void saveOnFile(int codici[], double lanci[]){
+  FILE *fp;
+
+  fp=fopen("save.dat", "w+");
+
+  for(int i=0; i<200; i++){
+    fprintf(fp,"%d %lf \n", codici[i], lanci[i]);
+  }
+
+  fclose(fp);
 }
 
 
@@ -69,15 +111,13 @@ int main(){
     srand(time(0));
     FILE *fp;
 
-    fp=fopen("DANIELE_DESANTIS.dat", "w+");
-
     for(int i=0; i<200; i++){
         codici[i]=i+1000;
         competizione(lanci);
     }
 
-    ordina(codici, lanci);
-    printf("stampa ordinata\n");
+    // ordina(codici, lanci);
+    ordinaDaniele(codici, lanci);
+    saveOnFile(codici,lanci);
 
-    fclose(fp);
 }
