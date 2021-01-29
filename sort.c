@@ -109,7 +109,6 @@ int main(){
     double lanci[200]={0};
 
     srand(time(0));
-    FILE *fp;
 
     for(int i=0; i<200; i++){
         codici[i]=i+1000;
